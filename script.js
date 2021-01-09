@@ -17,7 +17,6 @@ document.querySelector('.btn-group').addEventListener('click', function (event) 
 
   document.querySelectorAll('button[data-mode]').forEach(e => e.classList.remove('active'));
   document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
-  document.querySelector('progress').setAttribute('max', remainingTime);
 
   startTimer();
 });
@@ -33,8 +32,8 @@ function updateClock() {
   document.title = `${time} ${text}`;
   document.getElementById('text').textContent = text;
 
-  const progress = document.querySelector('progress');
-  progress.value = Number.parseInt(lengths[mode] - remainingTime);
+  document.getElementById('progress-value').style.width =
+    ((lengths[mode] - remainingTime) / lengths[mode]) * 100 + "vw";
 }
 
 function startTimer() {

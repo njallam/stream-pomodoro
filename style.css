@@ -6,17 +6,17 @@ body {
   text-align: center;
 }
 
-progress {
-  border-radius: 0;
-  width: 100vw;
+#progress, #progress-value {
+  position:absolute;
   height: 10vh;
 }
 
-progress::-webkit-progress-bar {
- background-color: transparent;
+#progress {
+  width: 100vw;
 }
 
-progress::-webkit-progress-value {
+#progress-value {
+  width: 0;
   background-color: white;
 }
 
@@ -26,6 +26,6 @@ progress::-webkit-progress-value {
 }
 
 #text {
-  font-size: 5vw;
-  line-height: 5vw;
+  font-size: 10vw;
+  line-height: 10vw;
 }
