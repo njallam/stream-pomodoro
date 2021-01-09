@@ -49,10 +49,11 @@ function startTimer() {
   clearInterval(interval);
   interval = setInterval(function () {
     remainingTime = (endTime - Date.now()) / 1000;
-    updateClock();
     if (remainingTime <= 0) {
+      remainingTime = 0;
       clearInterval(interval);
       (mode === 'pomodoro' ? breakSound : workSound).play();
     }
+    updateClock();
   }, 100);
 }
