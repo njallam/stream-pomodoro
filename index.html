@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link href="style.css" rel="stylesheet" />
+  <title>Stream Pomodoro</title>
+</head>
+
+<body>
+  <progress value="0"></progress>
+  <div id="clock">25:00</div>
+  <div id="text">until break</div>
+  <hr />
+  <div class="btn-group">
+    <button data-mode="pomodoro" class="btn btn-light">Pomodoro</button>
+    <button data-mode="shortBreak" class="btn btn-light">Short Break</button>
+    <button data-mode="longBreak" class="btn btn-light">Long Break</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

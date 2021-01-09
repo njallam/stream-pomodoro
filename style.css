@@ -1,0 +1,31 @@
+body {
+  height: 100%;
+  background-color: #444;
+  color: white;
+  font-family: 'Roboto Mono', monospace;
+  text-align: center;
+}
+
+progress {
+  border-radius: 0;
+  width: 100vw;
+  height: 10vh;
+}
+
+progress::-webkit-progress-bar {
+ background-color: transparent;
+}
+
+progress::-webkit-progress-value {
+  background-color: white;
+}
+
+#clock {
+  font-size: 30vw;
+  line-height: 35vw;
+}
+
+#text {
+  font-size: 5vw;
+  line-height: 5vw;
+}
