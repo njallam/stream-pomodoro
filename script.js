@@ -45,5 +45,5 @@ function startTimer() {
     remainingTime = (endTime - Date.now()) / 1000;
     updateClock();
     if (remainingTime <= 0) clearInterval(interval);
-  }, 1000);
+  }, 100);
 }
