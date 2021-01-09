@@ -22,8 +22,9 @@ document.querySelector('.btn-group').addEventListener('click', function (event) 
 });
 
 function updateClock() {
-  const minutes = `${Number.parseInt(remainingTime / 60)}`.padStart(2, '0');
-  const seconds = `${Number.parseInt(remainingTime % 60)}`.padStart(2, '0');
+  const remainingSeconds = Math.round(remainingTime);
+  const minutes = `${Math.floor(remainingSeconds / 60)}`.padStart(2, '0');
+  const seconds = `${remainingSeconds % 60}`.padStart(2, '0');
   const time = `${minutes}:${seconds}`;
 
   document.getElementById('clock').textContent = time;
