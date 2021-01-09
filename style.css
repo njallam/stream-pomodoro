@@ -4,10 +4,10 @@ body {
   color: white;
   font-family: 'Roboto Mono', monospace;
   text-align: center;
+  overflow: hidden;
 }
 
 #progress, #progress-value {
-  position:absolute;
   height: 10vh;
 }
 
@@ -22,7 +22,7 @@ body {
 
 #clock {
   font-size: 30vw;
-  line-height: 35vw;
+  line-height: 30vw;
 }
 
 #text {
