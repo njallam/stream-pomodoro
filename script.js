@@ -1,8 +1,13 @@
+const urlParams = new URLSearchParams(window.location.search);
+
 const lengths = {
-  pomodoro: 25 * 60,
-  shortBreak: 5 * 60,
-  longBreak: 10 * 60,
+  pomodoro: (Number.parseInt(urlParams.get('pomodoro')) || 25) * 60,
+  shortBreak: (Number.parseInt(urlParams.get('shortBreak')) || 5) * 60,
+  longBreak: (Number.parseInt(urlParams.get('longBreak')) || 10) * 60,
 }
+
+const breakSound = new Audio('sounds/break.mp3');
+const workSound = new Audio('sounds/work.mp3');
 
 let mode;
 let remainingTime;
@@ -45,6 +50,9 @@ function startTimer() {
   interval = setInterval(function () {
     remainingTime = (endTime - Date.now()) / 1000;
     updateClock();
-    if (remainingTime <= 0) clearInterval(interval);
+    if (remainingTime <= 0) {
+      clearInterval(interval);
+      (mode === 'pomodoro' ? breakSound : workSound).play();
+    }
   }, 100);
 }
