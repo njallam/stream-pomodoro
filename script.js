@@ -34,8 +34,8 @@ function updateClock() {
 
   document.getElementById('clock').textContent = time;
 
-  const text = mode === 'pomodoro' ? 'until break' : 'left in break';
-  document.title = `${time} ${text}`;
+  const text = mode === 'pomodoro' ? 'WORK TIME' : 'BREAK TIME';
+  document.title = `${time} - ${text}`;
   document.getElementById('text').textContent = text;
 
   document.getElementById('progress-value').style.width =
