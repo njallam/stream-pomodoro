@@ -34,7 +34,7 @@ function updateClock() {
 
   document.getElementById('clock').textContent = time;
 
-  const text = mode === 'pomodoro' ? 'WORK TIME' : 'BREAK TIME';
+  const text = mode === 'pomodoro' ? 'STUDY TIME' : 'BREAK TIME';
   document.title = `${time} - ${text}`;
   document.getElementById('text').textContent = text;
 
