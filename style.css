@@ -1,6 +1,6 @@
 body {
   height: 100%;
-  background-color: #444;
+  background-color: rgb(69, 69, 69);
   color: white;
   font-family: 'Roboto Mono', monospace;
   text-align: center;
@@ -13,6 +13,7 @@ body {
 
 #progress {
   width: 100vw;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 #progress-value {
