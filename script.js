@@ -1,16 +1,15 @@
 const urlParams = new URLSearchParams(window.location.search);
 
 const lengths = {
-  pomodoro: (Number.parseInt(urlParams.get('pomodoro')) || 25) * 60,
-  shortBreak: (Number.parseInt(urlParams.get('shortBreak')) || 5) * 60,
-  longBreak: (Number.parseInt(urlParams.get('longBreak')) || 10) * 60,
+  pomodoro: (Number(urlParams.get('pomodoro')) || 25) * 60,
+  shortBreak: (Number(urlParams.get('shortBreak')) || 5) * 60,
+  longBreak: (Number(urlParams.get('longBreak')) || 10) * 60,
 }
 
 const breakSound = new Audio('sounds/break.mp3');
 const workSound = new Audio('sounds/work.mp3');
 
 let mode;
-let remainingTime;
 let interval;
 
 document.querySelector('.btn-group').addEventListener('click', function (event) {
@@ -18,7 +17,6 @@ document.querySelector('.btn-group').addEventListener('click', function (event) 
   if (!newMode) return;
 
   mode = newMode;
-  remainingTime = lengths[mode];
 
   document.querySelectorAll('button[data-mode]').forEach(e => e.classList.remove('active'));
   document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
@@ -26,7 +24,7 @@ document.querySelector('.btn-group').addEventListener('click', function (event) 
   startTimer();
 });
 
-function updateClock() {
+function updateClock(remainingTime) {
   const remainingSeconds = Math.round(remainingTime);
   const minutes = `${Math.floor(remainingSeconds / 60)}`.padStart(2, '0');
   const seconds = `${remainingSeconds % 60}`.padStart(2, '0');
@@ -43,17 +41,21 @@ function updateClock() {
 }
 
 function startTimer() {
-  const endTime = Date.now() + remainingTime * 1000;
+  const endTime = Date.now() + lengths[mode] * 1000;
 
-  updateClock();
+  updateClock(lengths[mode]);
   clearInterval(interval);
   interval = setInterval(function () {
-    remainingTime = (endTime - Date.now()) / 1000;
+    let remainingTime = (endTime - Date.now()) / 1000;
     if (remainingTime <= 0) {
       remainingTime = 0;
       clearInterval(interval);
-      (mode === 'pomodoro' ? breakSound : workSound).play();
+      if (mode === 'pomodoro') {
+        breakSound.play();
+      } else {
+        workSound.play();
+      }
     }
-    updateClock();
+    updateClock(remainingTime);
   }, 100);
 }
