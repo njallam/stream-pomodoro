@@ -12,7 +12,10 @@ const workSound = new Audio('sounds/work.mp3');
 let mode;
 let interval;
 
-document.querySelector('.btn-group').addEventListener('click', function (event) {
+let length;
+let endTime;
+
+document.querySelector('#mode-buttons').addEventListener('click', function (event) {
   const { mode: newMode } = event.target.dataset;
   if (!newMode) return;
 
@@ -21,7 +24,31 @@ document.querySelector('.btn-group').addEventListener('click', function (event) 
   document.querySelectorAll('button[data-mode]').forEach(e => e.classList.remove('active'));
   document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
 
+  length = lengths[mode];
   startTimer();
+});
+
+document.querySelector('#adjust-buttons').addEventListener('click', function (event) {
+  const { action } = event.target.dataset;
+
+  switch (action) {
+    case "plus":
+      if (interval) {
+        length += 60;
+        endTime += 60000;
+      } else {
+        length = 60;
+        startTimer();
+      }
+      break;
+    case "minus":
+      length -= 60;
+      endTime -= 60000;
+      if (endTime < 0) {
+        endTime = 0;
+      }
+      break;
+  }
 });
 
 function updateClock(remainingTime) {
@@ -36,20 +63,22 @@ function updateClock(remainingTime) {
   document.title = `${time} - ${text}`;
   document.getElementById('text').textContent = text;
 
-  document.getElementById('progress-value').style.width =
-    ((lengths[mode] - remainingTime) / lengths[mode]) * 100 + "vw";
+  const progress = length == 0 ? 1 : ((length - remainingTime) / length)
+
+  document.getElementById('progress-value').style.width = progress * 100 + "vw";
 }
 
 function startTimer() {
-  const endTime = Date.now() + lengths[mode] * 1000;
+  endTime = Date.now() + length * 1000;
 
-  updateClock(lengths[mode]);
+  updateClock(length);
   clearInterval(interval);
   interval = setInterval(function () {
     let remainingTime = (endTime - Date.now()) / 1000;
     if (remainingTime <= 0) {
       remainingTime = 0;
       clearInterval(interval);
+      interval = null;
       if (mode === 'pomodoro') {
         breakSound.play();
       } else {
