@@ -1,5 +1,6 @@
 body {
   height: 100%;
+  margin: 0;
   background-color: rgb(69, 69, 69);
   color: white;
   font-family: 'Roboto Mono', monospace;
@@ -29,4 +30,59 @@ body {
 #text {
   font-size: 10vw;
   line-height: 10vw;
+}
+
+hr {
+  margin: 1rem 0;
+  color: inherit;
+  background-color: currentColor;
+  border: 0;
+  opacity: .25;
+}
+
+hr:not([size]) {
+  height: 1px;
+}
+
+button {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  display: inline-block;
+  line-height: 1.5;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  border-radius: .5rem;
+  color: #000;
+  background-color: #f8f9fa;
+}
+
+button.active {
+  background-color: #dbdbdb;
+}
+
+button:active {
+  background-color: #c1c6ca;
+}
+
+.btn-group {
+  display: inline-flex;
+}
+
+.btn-group>button:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.btn-group>button+button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
