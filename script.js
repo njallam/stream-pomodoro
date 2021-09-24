@@ -11,8 +11,9 @@ const workSound = new Audio('sounds/work.mp3');
 
 let mode;
 let interval;
-
 let length;
+let paused;
+let remainingTime;
 let endTime;
 
 document.querySelector('#mode-buttons').addEventListener('click', function (event) {
@@ -28,7 +29,24 @@ document.querySelector('#mode-buttons').addEventListener('click', function (even
   startTimer();
 });
 
+document.querySelector('#pause-button').addEventListener('click', function (event) {
+  if (paused) {
+    resumeTimer();
+  } else if (interval) {
+    clearInterval(interval);
+    interval = null;
+    paused = true;
+    document.querySelector('#pause-button').classList.add('active');
+    document.title = 'PAUSED';
+    document.getElementById('text').textContent = 'PAUSED';
+  }
+});
+
 document.querySelector('#adjust-buttons').addEventListener('click', function (event) {
+  if (paused) {
+    return;
+  }
+
   const { action } = event.target.dataset;
 
   switch (action) {
@@ -36,6 +54,7 @@ document.querySelector('#adjust-buttons').addEventListener('click', function (ev
       if (interval) {
         length += 60;
         endTime += 60000;
+        updateClock();
       } else {
         length = 60;
         startTimer();
@@ -47,14 +66,27 @@ document.querySelector('#adjust-buttons').addEventListener('click', function (ev
       if (endTime < 0) {
         endTime = 0;
       }
+      updateClock();
       break;
   }
 });
 
-function updateClock(remainingTime) {
+function updateClock() {
+  remainingTime = (endTime - Date.now()) / 1000;
+  if (remainingTime <= 0) {
+    remainingTime = 0;
+    clearInterval(interval);
+    interval = null;
+    if (mode === 'pomodoro') {
+      breakSound.play();
+    } else {
+      workSound.play();
+    }
+  }
+
   const remainingSeconds = Math.round(remainingTime);
-  const minutes = `${Math.floor(remainingSeconds / 60)}`.padStart(2, '0');
-  const seconds = `${remainingSeconds % 60}`.padStart(2, '0');
+  const minutes = Math.floor(remainingSeconds / 60).toString().padStart(2, '0');
+  const seconds = (remainingSeconds % 60).toString().padStart(2, '0');
   const time = `${minutes}:${seconds}`;
 
   document.getElementById('clock').textContent = time;
@@ -68,23 +100,20 @@ function updateClock(remainingTime) {
   document.getElementById('progress-value').style.width = progress * 100 + "vw";
 }
 
+function runTimer() {
+  clearInterval(interval);
+  paused = false;
+  document.querySelector('#pause-button').classList.remove('active')
+  interval = setInterval(updateClock, 100);
+}
+
 function startTimer() {
   endTime = Date.now() + length * 1000;
+  updateClock();
+  runTimer();
+}
 
-  updateClock(length);
-  clearInterval(interval);
-  interval = setInterval(function () {
-    let remainingTime = (endTime - Date.now()) / 1000;
-    if (remainingTime <= 0) {
-      remainingTime = 0;
-      clearInterval(interval);
-      interval = null;
-      if (mode === 'pomodoro') {
-        breakSound.play();
-      } else {
-        workSound.play();
-      }
-    }
-    updateClock(remainingTime);
-  }, 100);
+function resumeTimer() {
+  endTime = Date.now() + remainingTime * 1000;
+  runTimer();
 }
