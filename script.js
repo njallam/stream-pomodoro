@@ -31,7 +31,8 @@ document.querySelector('#mode-buttons').addEventListener('click', function (even
 
 document.querySelector('#pause-button').addEventListener('click', function (event) {
   if (paused) {
-    resumeTimer();
+    endTime = Date.now() + remainingTime * 1000;
+    runTimer();
   } else if (interval) {
     clearInterval(interval);
     interval = null;
@@ -106,16 +107,11 @@ function runTimer() {
   clearInterval(interval);
   paused = false;
   document.querySelector('#pause-button').classList.remove('active')
+  updateClock();
   interval = setInterval(updateClock, 100);
 }
 
 function startTimer() {
   endTime = Date.now() + length * 1000;
-  updateClock();
-  runTimer();
-}
-
-function resumeTimer() {
-  endTime = Date.now() + remainingTime * 1000;
   runTimer();
 }
