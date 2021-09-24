@@ -61,12 +61,14 @@ document.querySelector('#adjust-buttons').addEventListener('click', function (ev
       }
       break;
     case "minus":
-      length -= 60;
-      endTime -= 60000;
-      if (endTime < 0) {
-        endTime = 0;
+      if (interval) {
+        length -= 60;
+        endTime -= 60000;
+        if (endTime < 0) {
+          endTime = 0;
+        }
+        updateClock();
       }
-      updateClock();
       break;
   }
 });
