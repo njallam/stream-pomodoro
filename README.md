@@ -5,7 +5,7 @@
 This project is intended to be use as a browser source in OBS.
 
 1. Create a browser source using the following URL: `https://njallam.github.io/stream-pomodoro/`
-   - To customise the study and break time lengths use the following URL instead: `https://njallam.github.io/stream-pomodoro/?pomodoro=45&shortBreak=10&longBreak=15` (replacing `45`, `10` and `15` with minute values as desired.)
+   - To customise the focus and break time lengths use the following URL instead: `https://njallam.github.io/stream-pomodoro/?pomodoro=45&shortBreak=10&longBreak=15` (replacing `45`, `10` and `15` with minute values as desired.)
 2. To interact with the timer, right click the source in OBS and click "Interact".
 3. You can use Custom CSS to customise the look of the timer. See below for examples.
 
